@@ -75,5 +75,4 @@ Essa sessão cumpre o requisito 2.2, através da solicitação da conexão pelos
 3. Enviar_dados:
    - Dados da mensagem (obrigatório).
 
-
         Essa sessão cumpre o requisito 3.4 por meio da confirmação da conexão, da recuperação de dados dos sensores e do envio dos mesmos.
