@@ -1,5 +1,5 @@
-Estufa Inteligente
-**Requisitos
+**Estufa Inteligente
+Requisitos
 1. Sensoriamento:** 
    - Todos os sensores têm um identificador único. 
    - Os sensores devem se conectar ao Gerenciador e se identificar. 
