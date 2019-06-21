@@ -1,60 +1,7 @@
-﻿Resultado de imagem para icmc 
-
-
-
-
-
-
-
-Relatório
-Disciplina de – Redes de Computadores
-Profa. Dra. Kalinka Regina Lucas Jaquie Castelo Branco
-Bacharelado em Ciências da Computação
-26 de maio de 2019
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Gabriela Chavez 10295440
 Raphael Medeiros 10284239
 Vitor Avian 10295392
-Sumário
 
-
-Requisitos………....………………………………………………………………………...2
-Sensoriamento        2
-Atuadores        2
-Gerenciador        2
-Monitoramento        2
-Descrição do Protocolo…………………………………………………………………...        3
-Mensagens…………………………………………………………………………………..        3
-Mensagens de sensores para gerenciador        3
-Mensagens do gerenciador para sensores        3
-Mensagens do atuadores para gerenciador        3
-Mensagens do gerenciador para atuadores        4
-Mensagens do cliente para o gerenciador        4
-Mensagens do gerenciador para o cliente        4
-________________
 Estufa Inteligente
 Requisitos
 1. Sensoriamento: 
