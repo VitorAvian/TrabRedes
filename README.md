@@ -1,18 +1,23 @@
-**Estufa Inteligente
-Requisitos
-1. Sensoriamento:** 
+**Estufa Inteligente**
+
+**Requisitos**
+
+**1. Sensoriamento:** 
    - Todos os sensores têm um identificador único. 
    - Os sensores devem se conectar ao Gerenciador e se identificar. 
    - Após receber confirmação, os sensores deverão enviar sua leitura a cada 1s ao Gerenciador.
+
 **2. Atuadores:**
    - Todos os atuadores têm um identificador único.
    - Os atuadores devem se conectar ao Gerenciador e se identificar.        
    - Os atuadores poderão ser ligados ou desligados pelo Gerenciador. 
+
 **3. Gerenciador:** 
    - O Gerenciador deverá aceitar a conexão de sensores e atuadores do sistema. 
    - O Gerenciador deve receber as leituras de todos os sensores do sistema e armazenar o último valor recebido. 
    - O Gerenciador deve ligar ou desligar os atuadores caso os valores das leituras de sensores indicarem que as variáveis estão fora dos valores máximo e mínimo configurados. 
    - O Gerenciador deve ser capaz de fornecer ao Cliente a última leitura de cada sensor do sistema quando receber uma requisição.
+
 **4. Monitoramento:**
    - O Cliente deve ser capaz de requisitar a última leitura de qualquer sensor do sistema ao Gerenciador.
 ________________
