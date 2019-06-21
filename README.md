@@ -5,9 +5,9 @@ Vitor Avian 10295392
 Estufa Inteligente
 Requisitos
 1. Sensoriamento: 
-   1. Todos os sensores têm um identificador único. 
-   2. Os sensores devem se conectar ao Gerenciador e se identificar. 
-   3. Após receber confirmação, os sensores deverão enviar sua leitura a cada 1s ao Gerenciador.
+   - Todos os sensores têm um identificador único. 
+   - Os sensores devem se conectar ao Gerenciador e se identificar. 
+   - Após receber confirmação, os sensores deverão enviar sua leitura a cada 1s ao Gerenciador.
 1. Atuadores:
    1. Todos os atuadores têm um identificador único.
    2. Os atuadores devem se conectar ao Gerenciador e se identificar.        
