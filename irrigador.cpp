@@ -1,17 +1,15 @@
 /**
  *		Segunda Parte - Trabalho de Redes
  *			Implementação do Protocolo
- *			  	Código do Cliente
+ *			Código do Atuador Irrigador
  *			Vitor Avian nUSP: 10295392
  **/
 
 /**
  *		Descrição:
- *			Código que simula a comunicação do Cliente com o
- *		Gerenciador, ao se conectar, o cliente informa que operação
- *		ele quer que o gerenciador retorne. Nessa implementação a unica
- *		informação que ele precisa são os ultimos dados da leitura
- *		que o cliente pode pedir pela mensagem "analise".
+ *			Código que simula a comunicação do atuador Irrigador com o
+ *		Gerenciador, ele se conecta ao gerenciador e espera uma mensagem
+ *		dizendo se ele deve ser desligado ou ligado caso precise.
  **/
 
 #include <iostream>
@@ -27,7 +25,7 @@
 using namespace std;
 
 // Port do servidor
-#define PORT 5050
+#define PORT 4242
 
 // Tamanho do buffer
 #define TAM_BUFFER 1024
@@ -35,29 +33,14 @@ using namespace std;
 // Endereço do servidor
 #define SERVER_ADDR "127.0.0.1"
 
-// Definir o id do cliente
-#define ID "1000"
-
-struct Dados{
-	char temperatura[3];
-	char umidade[3];
-	char co2[3];
-	char maxTemp[3];
-	char minTemp[3];
-	char maxUmi[3];
-	char minUmi[3];
-	char maxCO[3];
-	char minCO[3];
-};
+// Definir o id do atuador
+#define ID "0101"
 
 // Execução do protocolo
 int main(int argc, char *argv[]) {
 	
 	// Struct do socket do servidor
 	struct sockaddr_in servidor;
-	
-	// Struct para receber os dados do servidor
-	struct Dados d;
 	
 	// Descrição do file do socket
 	int sockfd;
@@ -67,12 +50,10 @@ int main(int argc, char *argv[]) {
 	
 	// Buffer de receber
 	char buffer_in[TAM_BUFFER];
-	// Buffer de enviar
-	char buffer_out[TAM_BUFFER];
 	
 	cout<<"Ligando cliente..."<<endl;
 	
-	// Criar um socket para o cliente
+	// Criar um socket para o atuador
 	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
 		perror("Erro na criação do socket do cliente:");
 		return EXIT_FAILURE;
@@ -98,40 +79,32 @@ int main(int argc, char *argv[]) {
 		cout<<"Servidor diz: "<<buffer_in<<endl;
 	}
 	
-	// Header contendo o ID do cliente
+	// Header contendo o ID do atuador
 	char header[] = ID;
 	// Mandar o header para o servidor identificar quem está se conectando
 	send(sockfd, header, strlen(header), 0);
 	
+	int funcao = 2;
 	// Começa a troca de mensagens com o servidor até a mensagem de parar
 	while (true) {
 		
 		// Limpando os buffer antes de receber e mandar mensagens
 		memset(buffer_in, 0x0, TAM_BUFFER);
-		memset(buffer_out, 0x0, TAM_BUFFER);
 		
-		// Digitar a mensagem que deseja mandar, "analise"
-		cout<<"Mande a mensagen desejada: ";
-		fgets(buffer_out, TAM_BUFFER, stdin);
-		
-		// Manda a mensagem para o servidor pelo socket
-		send(sockfd, buffer_out, strlen(buffer_out), 0);
-		
-		// Recebe a mensagem de resposta do servidor
+		// Recebe a mensagem de resposta do servidor sobre o aquecedor ligar ou desligar
 		stam = recv(sockfd, buffer_in, TAM_BUFFER, 0);
 		cout<<"Resposta do servidor: "<<buffer_in<<endl;
-		if(strcmp(buffer_out, "analise\n") == 0){ // Receber a resposta do gerenciador e mostrar para o cliente
-			memcpy(d.temperatura, buffer_in, 2);
-			d.temperatura[2] = '\0';
-			memcpy(d.umidade, buffer_in+2, 2);
-			d.umidade[2] = '\0';
-			memcpy(d.co2, buffer_in+4, 2);
-			d.co2[2] = '\0';
-			cout<<"Última leitura dos sensores:"<<endl;
-			cout<<"Temperatura: "<<d.temperatura<<"ºC"<<endl;
-			cout<<"Umidade: "<<d.umidade<<"g/m"<<endl;
-			cout<<"CO2: "<<d.co2<<"%"<<endl;
+		funcao = buffer_in[0] - '0';
+		if(funcao == 1){ // Simula ligar ou desligar o irrigador e informa o gerenciador
+			cout<<"Ligando irrigador..."<<endl;
+			send(sockfd, "Irrigador ligado.", 17, 0);
 		}
+		else if(funcao == 0){
+			cout<<"Desligando aquecedor..."<<endl;
+			send(sockfd, "Irrigador desligado.", 20, 0);
+		}
+		else
+			break;
 		// Ao receber uma resposta "tchau", finalizar a conexão
 		if(strcmp(buffer_in, "Tchau\n") == 0)
 			break;
